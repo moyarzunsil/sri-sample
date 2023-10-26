@@ -1,0 +1,43 @@
+===================================================================================================
+Herramientas Básicas para un Sistema de Recuperación de Información (SRI)
+===================================================================================================
+
+Esta es una serie de scripts para servir de ejemplo para el curso electivo de taller de sistemas.
+En el podrás encontrar por orden de uso en el proceso SRI:
+
+* scraper.py: script para hacer scraping a un sitio web recursivamente. Deberían extenderlo hasta 
+lograr que haga lo mismo con la cantidad de semillas que ustedes determinen. Este script genera 
+los archivos data/urls.txt que contiene las URLs obtenidas y data/pages.txt que contiene el texto
+de cada página obtenida, 1 página por linea.
+
+* map.py: lee data/pages.txt y crea pares (palabra, documento). la "palabra" es un string, el 
+"documento" es un entero que representa la linea (documento obtenido) donde se encuentra la 
+palabra. Esta es la primera etapa del modelo "map-reduce".
+
+* reduce.py: recibe pares (palabra, documento) desde la salida estandar (generadas por map.py) y
+construye un indice invertido cuyos componentes son:
+palabra nro_docs id1 freq1 id2 freq2 ... idn freqn
+La palabra es un string, el nro_docs un entero que indica cuantos pares (id, freq) existen y cada
+par tiene un id que es el numero de documento y una freq que es la cantidad de veces que la palabra
+se repite en el documento. Toda esta información es necesaria para posteriormente calcular ranking.
+
+* classes/inverted_list.py: archivo que contiene las clases InvertedList que es la estructura de datos 
+necesaria para almacenar la información del índice en memoria principal. Esta es extraida del archivo 
+data/index.txt. Ademas contiene la clase Document, que es un par (id, freq).
+
+* api_middleware.py: script que realiza la comunicación entre un cliente de la API (externo como el
+frontend) y el servidor de respuestas interno (a través de un socket).
+
+* answer_sserver.py: script que levanta el indice invertido y responde a través de un socket server al
+API middleware.
+
+=====================================================================================================
+Dependencias
+=====================================================================================================
+
+Para que los programas funcionen se deben instalar las siguientes dependencias:
+
+> pip install requests beautifulsoup4
+> pip install colabcode
+> pip install fastapi
+> pip install uvicorn # deberia instalarse automaticamente al instalar colabcode
