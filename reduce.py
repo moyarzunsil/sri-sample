@@ -20,6 +20,7 @@ def main():
         listado = " ".join([f"{num_linea} {conteo}" for num_linea, conteo in lineas.items()])
         print(f"{palabra} {str(len(lineas))} {listado}")
 
+
 if __name__ == "__main__":
     main()
 

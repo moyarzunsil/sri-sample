@@ -9,13 +9,13 @@ app = FastAPI()
 
 def client_program(query: str):
     host = socket.gethostname()  # as both code is running on same pc
-    port = 5000  # socket server port number
+    port = 5069  # socket server port number
 
     client_socket = socket.socket()  # instantiate
     client_socket.connect((host, port))  # connect to the server
 
     client_socket.send(query.encode())  # send message
-    data = client_socket.recv(1024).decode()
+    data = client_socket.recv(4096).decode()
 
     client_socket.close()  # close the connection
 
