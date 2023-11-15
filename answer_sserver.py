@@ -5,7 +5,8 @@ index = InvertedList()
 
 def load_index():
     index.load_index("data/index.txt")
-    print("index load [OK]")
+    index.load_doclen("data/document_len.txt")
+    #print("index load [OK]")
     #print(index)
 
 #def make_query(query):
@@ -21,7 +22,9 @@ def make_query(query):
     for word in words[1:]:
         intersection_list = index.query_or(intersection_list, word)
 
-    return str(intersection_list)
+    sorted_index = intersection_list.get_full_index_sorted()
+
+    return str(sorted_index)
 
 def server_program():
     # get the hostname

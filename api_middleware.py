@@ -15,7 +15,7 @@ def client_program(query: str):
     client_socket.connect((host, port))  # connect to the server
 
     client_socket.send(query.encode())  # send message
-    data = client_socket.recv(4096).decode()
+    data = client_socket.recv(16384).decode()
 
     client_socket.close()  # close the connection
 
